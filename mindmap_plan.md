@@ -3,7 +3,7 @@
 Wir implementieren eine hexagonale Architektur als Ausbaustufe 2. Nachdem eine simpe JSON Erzeugung/Auslese Version implementiert wurde.  
 
 ## frontend
-Für das Frontend wird cytoscape.js (Hier)[https://js.cytoscape.org] benutzt, da dies einen Fokus auf das Backend erlaubt. 
+Für das Frontend wird cytoscape.js ![Hier](https://js.cytoscape.org) benutzt, da dies einen Fokus auf das Backend erlaubt. 
 
 ## backend
 Im Backend werde ich in go nodes als Struktur erfassen. 
@@ -17,7 +17,7 @@ Außerdem baue ich einen Mindmap Container der pro Mindmap jeweils alle Nodes en
 1. Titel der Mindmap 
 2. Nodes 
 
-Meine Go API wird dann die jeweiligen Daten im JSON Format zur Verfügung stellen. Die Nodedaten müssen abgefragt werden können via GET request und geschrieben werden können via POST request. 
+Meine Go API wird dann die jeweiligen Daten im JSON Format zur Verfügung stellen. Die Nodedaten müssen abgefragt werden können via GET request abgerufen und via post request geschrieben werden können. 
 
 ## database
-Am Anfang lege ich meine Daten einfach als Einträge in einer SQLite Datenbank ab. 
+Am Anfang behalten wir die Daten erstmal auf dem Server in Memory. Danach lege ich meine Daten einfach als Einträge in einer SQLite Datenbank ab. 

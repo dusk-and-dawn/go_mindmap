@@ -1,9 +1,21 @@
 package usecases
 
-type MapActions struct {
-	Prefix string
+// Ist die Definition des Struct typen hier sinnvoll oder sollte ich diese auslagern?
+type Node struct {
+	Id       string
+	Content  string
+	Children []string
+	X        float64
+	Y        float64
 }
 
-func (f MapActions) GetMapByID(id string) string {
-	return f.Prefix + id
+type MapActions struct {
+	// Prefix string
+	Nodes map[string]Node
+}
+
+func (f MapActions) GetMapByID(id string) (Node, bool) {
+	node, exists := f.Nodes[id]
+	return node, exists
+	// return f.Prefix + id
 }

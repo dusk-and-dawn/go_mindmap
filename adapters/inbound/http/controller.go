@@ -11,9 +11,16 @@ type MapHandler struct {
 
 func (f MapHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
-	mmap := f.Mastruct.GetMapByID(id)
-	barrayID := []byte(mmap)
-	w.Write(barrayID)
+
+	mmap, mmap_bool := f.Mastruct.GetMapByID(id) // Roman fragen wie ich dies anpassen muss um JSON zurück zu geben
+	if !mmap_bool {
+		http.Error(w, "Keine Node gefunden mit der ID", http.StatusNotFound)
+		return
+	} else {
+		barrayID := []byte(mmap.Content)
+		w.Write(barrayID)
+	}
+
 }
 
 // func setupHandler(testNode Node) {

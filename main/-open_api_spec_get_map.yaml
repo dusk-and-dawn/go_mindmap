@@ -1,0 +1,28 @@
+openapi: 3.2.0
+info:
+  title: Holt sich eine vollstaendige Mindmap anhand einer ID 
+  description: API zum Aufrufen einer vollstaendigen Mindmap 
+  version: 0.0.1 
+
+paths:
+  /maps/{mapID}:
+    get: 
+      summary: holt einen kompletten Mindmap Tree 
+      parameters: 
+        - name: mapID 
+          in: path 
+          required: true 
+          description: ID zur korrekten Zuordnung 
+          schema:
+            type: string 
+            format: uuid 
+      responses:
+        "200": 
+          description: erfolgreich mindmap zurueck gegeben. 
+          content: 
+            application/json: 
+              schema: 
+        "404":
+          description: fehler keine Mindmap gefunden 
+        "500":
+          description: Server wirft Fehler 

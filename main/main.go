@@ -4,6 +4,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	ihttp "go_mindmap/adapters/inbound/http"
+	"go_mindmap/core/usecases"
 	"log"
 	"net/http"
 )
@@ -25,7 +27,14 @@ func getHandler() {
 }
 
 func main() {
+
 	fmt.Println("In main angekommen")
+
+	mux := http.NewServeMux()
+
+	mh := ihttp.MapHandler{Mastruct: usecases.MapActions{Prefix: "dependency injected "}}
+
+	mux.Handle("/map/{id}", mh)
 
 	testNode := Node{
 		Id:       "01",
@@ -47,9 +56,9 @@ func main() {
 	}
 	println(string(barray))
 
-	setupHandler(testNode)
+	//setupHandler(testNode)
 
 	//http.ListenAndServe(":8080", nil)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8080", mux))
 
 }

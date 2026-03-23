@@ -3,7 +3,7 @@
 Wir implementieren eine hexagonale Architektur als Ausbaustufe 2. Nachdem eine simpe JSON Erzeugung/Auslese Version implementiert wurde.  
 
 ## frontend
-Für das Frontend wird cytoscape.js ![Hier](https://js.cytoscape.org) benutzt, da dies einen Fokus auf das Backend erlaubt. 
+Für das Frontend wird cytoscape.js [Hier](https://js.cytoscape.org) benutzt, da dies einen Fokus auf das Backend erlaubt. 
 
 ## backend
 Im Backend werde ich in go nodes als Struktur erfassen. 

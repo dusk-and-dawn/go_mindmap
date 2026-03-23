@@ -19,9 +19,9 @@ import (
 // }
 
 // wie würde ich diese function wieder nutzbar machen wenn ich die struct definition in map-actions machen will?
-// func (f Node) sayHi() {
+// func (f usecases.Node) sayHi() {
 // 	fmt.Printf("Hi %v", f)
-// }
+//  }
 
 func getHandler() {
 
@@ -33,14 +33,34 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	nodes := map[string]usecases.Node{
-		"01": {Id: "01", Content: "Super coole Testnode"},
-		"02": {Id: "02", Content: "Bombastische Testnode"},
+	a := usecases.Node{
+		Id:       "01",
+		Content:  "mega test node",
+		Children: []string{"a", "b"},
+		X:        160,
+		Y:        200}
+
+	b := usecases.Node{
+		Id:       "02",
+		Content:  "beste Teste",
+		Children: []string{"a", "b"},
+		X:        160,
+		Y:        200}
+
+	c := []usecases.Node{a, b}
+
+	// a = usecases.Node{Id: "01", Content: "Super coole Testnode"}
+	nodes := map[string]usecases.Node{}
+
+	for _, value := range c {
+		nodes[value.Id] = value
 	}
 
 	mh := ihttp.MapHandler{Mastruct: usecases.MapActions{Nodes: nodes}}
 
-	mux.Handle("/map/{id}", mh)
+	mux.HandleFunc("GET /map/{id}", mh.GetMap)
+
+	mux.HandleFunc("POST /map", mh.CreateMap)
 
 	// testNode := Node{
 	// 	Id:       "01",

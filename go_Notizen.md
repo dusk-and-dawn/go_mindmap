@@ -13,3 +13,7 @@ Zuletzt haben wir auch noch das anlegen von Methoden unter Strukturen und deren 
 ## Session 2 
 
 HA: Statt Prefix eine Hashmap an nodes reingegeben, dann durch business logik die richtige node finden und ausgeben 
+
+## Session 3 
+
+HA: Post Handler implementieren, sodass eine node von Hand angelegt werden kann + SQLight DB implementieren und hier nodes wegschreiben 

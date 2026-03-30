@@ -2,6 +2,7 @@ package http
 
 import (
 	"encoding/json"
+	"fmt"
 	"go_mindmap/core/usecases"
 	"net/http"
 )
@@ -38,7 +39,13 @@ func (f MapHandler) GetMap(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f MapHandler) CreateMap(w http.ResponseWriter, r *http.Request) {
-
+	var newNode usecases.Node
+	err := json.NewDecoder(r.Body).Decode(&newNode)
+	if err != nil {
+		http.Error(w, "JSON nicht entschlüsselt bekommen", http.StatusBadRequest)
+		return
+	}
+	fmt.Println(newNode.Content)
 }
 
 // func setupHandler(testNode Node) {

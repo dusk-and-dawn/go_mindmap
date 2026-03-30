@@ -31,6 +31,8 @@ func main() {
 
 	fmt.Println("In main angekommen")
 
+	setUpDB()
+
 	mux := http.NewServeMux()
 
 	a := usecases.Node{

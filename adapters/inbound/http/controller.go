@@ -3,29 +3,34 @@ package http
 import (
 	"encoding/json"
 	"fmt"
+	"go_mindmap/core/domain"
 	"go_mindmap/core/usecases"
 	"net/http"
 )
 
 type MapHandler struct {
-	Mastruct usecases.MapActions
+	MAusecase usecases.MapActions
 }
 
-type HTTPMindmap struct {
+type HTTPNode struct {
 	Id      string `json:"id"`
 	Content string `json:"content"`
 }
 
-func (f MapHandler) GetMap(w http.ResponseWriter, r *http.Request) {
+type HTTPNodeList struct {
+	Nodes []HTTPNode `json:"nodes"`
+}
+
+func (f MapHandler) GetNode(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
 
-	mmap, mmap_bool := f.Mastruct.GetMapByID(id) // Roman fragen wie ich dies anpassen muss um JSON zurück zu geben
+	mmap, mmap_bool := f.MAusecase.GetNodeByID(id) // Roman fragen wie ich dies anpassen muss um JSON zurück zu geben
 
 	if !mmap_bool {
 		http.Error(w, "Keine Node gefunden mit der ID", http.StatusNotFound)
 		return
 	}
-	httpMM := HTTPMindmap{
+	httpMM := HTTPNode{
 		Id:      mmap.Id,
 		Content: mmap.Content,
 	}
@@ -38,14 +43,32 @@ func (f MapHandler) GetMap(w http.ResponseWriter, r *http.Request) {
 	w.Write(barrayID)
 }
 
-func (f MapHandler) CreateMap(w http.ResponseWriter, r *http.Request) {
-	var newNode usecases.Node
+func (f MapHandler) CreateNode(w http.ResponseWriter, r *http.Request) {
+	var newNode HTTPNode
 	err := json.NewDecoder(r.Body).Decode(&newNode)
 	if err != nil {
+		fmt.Println(err)
 		http.Error(w, "JSON nicht entschlüsselt bekommen", http.StatusBadRequest)
 		return
 	}
 	fmt.Println(newNode.Content)
+	node2neo := domain.Node{Id: newNode.Id, Content: newNode.Content}
+	f.MAusecase.SaveNode(node2neo)
+
+}
+
+func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) []any { //[]any only for saving not needed probably
+	// var nodeCol HTTPNodeList
+	nodeCol := f.MAusecase.GetNodes()
+	return nodeCol
+
+}
+
+func (f MapHandler) ShowWaiting(w http.ResponseWriter, r *http.Request) {
+	msg := "Hier noch nix im Frontend"
+
+	barrayMsg := []byte(msg)
+	w.Write(barrayMsg)
 }
 
 // func setupHandler(testNode Node) {

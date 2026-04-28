@@ -16,4 +16,16 @@ HA: Statt Prefix eine Hashmap an nodes reingegeben, dann durch business logik di
 
 ## Session 3 
 
-HA: Post Handler implementieren, sodass eine node von Hand angelegt werden kann + SQLight DB implementieren und hier nodes wegschreiben 
+HA: Post Handler implementieren, sodass eine node von Hand angelegt werden kann + SQLight db implementieren und hier nodes wegschreiben 
+
+## Session 4 
+
+HA: return die ID vom post endpunkt, abruf basierend auf der selben id von der db --> Hexagonale Architektur im Kopf behalten, db Model definieren und in das Domain Model uebersetzen 
+
+## Session 5 
+
+HA: Einmal refactoren und besser benennen plus durchdringen hier Bezug nehmen auf die Hexagonale Architektur - Achtung Domain soll die Logik ausfuehren nicht der Http adapter 
+
+## Session 6 
+
+Funktionalität zur Wiedergabe von eine Liste an Nodes finalisieren. Node-Verbindung via Endpunkt ermöglichen. 

@@ -6,15 +6,6 @@ import (
 	"go_mindmap/core/domain"
 )
 
-// Ist die Definition des Struct typen hier sinnvoll oder sollte ich diese auslagern?
-// type Node struct {
-// 	Id       string
-// 	Content  map[string]any
-// 	//Children []string
-// 	//X        float64
-// 	//Y        float64
-// }
-
 type MapActions struct {
 	// Prefix string
 	Nodes map[string]domain.Node
@@ -35,7 +26,10 @@ func (f MapActions) SaveNode(node domain.Node) error {
 	return nil
 }
 
-func (f MapActions) GetNodes() []any {
-	x := []any{"test", "0"}
-	return x
+func (f MapActions) GetNodes() error {
+	err := f.DB.NodesFromNeo(context.Background())
+	if err != nil {
+		return err
+	}
+	return nil
 }

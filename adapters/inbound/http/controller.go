@@ -57,10 +57,20 @@ func (f MapHandler) CreateNode(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) []any { //[]any only for saving not needed probably
-	// var nodeCol HTTPNodeList
-	nodeCol := f.MAusecase.GetNodes()
-	return nodeCol
+func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) {
+	err := f.MAusecase.GetNodes()
+
+	if err != nil {
+		fmt.Println("kaputt aus GetNodes Http")
+		return
+	}
+	snarkyComment, err := json.Marshal("check the Terminal")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+	w.Write(snarkyComment)
+	return
 
 }
 
@@ -70,15 +80,3 @@ func (f MapHandler) ShowWaiting(w http.ResponseWriter, r *http.Request) {
 	barrayMsg := []byte(msg)
 	w.Write(barrayMsg)
 }
-
-// func setupHandler(testNode Node) {
-// 	http.HandleFunc("/testCall", func(w http.ResponseWriter, _ *http.Request) {
-
-// 		barray, err := json.Marshal(testNode)
-// 		if err != nil {
-// 			w.WriteHeader(500)
-// 			return
-// 		}
-// 		w.Write(barray)
-// 	})
-// }

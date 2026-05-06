@@ -19,12 +19,6 @@ func main() {
 
 	fmt.Println("In main angekommen")
 
-	// conn, err := setUpdb()
-	// if err != nil {
-	// 	fmt.Println("keine Connection zur db moeglich", "error ist:", err)
-	// 	return
-	// }
-
 	mux := http.NewServeMux()
 
 	a := domain.Node{
@@ -56,15 +50,6 @@ func main() {
 		return
 	}
 	fmt.Println("weggeschrieben in Neo4j")
-	// commitMmapTodb(conn, a)
-	// var testStringID string
-	// var testStringContent string
-	// err = conn.QueryRow("SELECT * FROM mmaps WHERE id = ?", 1).Scan(&testStringID, &testStringContent)
-	// if err != nil {
-	// 	log.Fatal(err)
-	// 	return
-	// }
-	// fmt.Println(testStringID, testStringContent)
 
 	nodes := map[string]domain.Node{}
 
@@ -79,6 +64,8 @@ func main() {
 	mux.HandleFunc("GET /makemap", mh.ShowWaiting) // dies in den http adapter
 
 	mux.HandleFunc("POST /makemap", mh.CreateNode) // dies in den http adapter
+
+	mux.HandleFunc("GET /getall", mh.GetNodes)
 
 	log.Fatal(http.ListenAndServe(":8080", mux)) // dies in den http adapter
 

@@ -68,7 +68,7 @@ func (f Neo4jAdapter) MindmapToNeo(ctx context.Context, topicName string) error 
 	defer session.Close(ctx)
 
 	_, err := session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
-		// We use MERGE so we don't create duplicates if the function runs twice
+
 		query := "MERGE (t:Node {name: $name}) RETURN t"
 		params := map[string]any{"name": topicName}
 
@@ -78,6 +78,31 @@ func (f Neo4jAdapter) MindmapToNeo(ctx context.Context, topicName string) error 
 		}
 
 		return result.Collect(ctx)
+	})
+
+	return err
+}
+
+func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) error {
+	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
+	defer session.Close(ctx)
+
+	_, err := session.ExecuteRead(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
+		query := "MATCH (n) RETURN (n)"
+		result, err := tx.Run(ctx, query, nil)
+		if err != nil {
+			return nil, err
+		}
+
+		fmt.Println("______Los gehts, hier alle Nodes________")
+
+		for result.Next(ctx) {
+			record := result.Record()
+			fmt.Println(record.Values...)
+		}
+
+		return nil, result.Err()
+
 	})
 
 	return err

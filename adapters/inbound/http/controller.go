@@ -80,3 +80,16 @@ func (f MapHandler) ShowWaiting(w http.ResponseWriter, r *http.Request) {
 	barrayMsg := []byte(msg)
 	w.Write(barrayMsg)
 }
+
+func (f MapHandler) ConnectNodes(w http.ResponseWriter, r *http.Request) {
+	var newRelationship string
+	// id1 := r.PathValue("id1")
+	// id2 := r.PathValue("id2")
+	err := json.NewDecoder(r.Body).Decode(&newRelationship)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "JSON nicht entschlüsselt bekommen", http.StatusBadRequest)
+		return
+	}
+	// f.MAusecase.ConnectNodesFE(id1, id2)
+}

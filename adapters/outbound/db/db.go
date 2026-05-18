@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"fmt"
+	"go_mindmap/core/domain"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/neo4j/neo4j-go-driver/v6/neo4j"
@@ -107,3 +108,49 @@ func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) error {
 
 	return err
 }
+
+func (f Neo4jAdapter) ConnectNodes(ctx context.Context, nodeA domain.Node, nodeB domain.Node, relationshipA string) error {
+	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
+	defer session.Close(ctx)
+
+	_, err := session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
+		query := `
+		MATCH (a:Node {name: $nameA}), (b:Node{name: $nameB})
+		MERGE (a)-[r:IS_CONNECTED_TO]->(b)
+		Return r
+		`
+		params := map[string]any{"nameA": nodeA, "nameB": nodeB}
+
+		result, err := tx.Run(ctx, query, params)
+		if err != nil {
+			return nil, err
+		}
+		return result.Collect(ctx)
+	})
+	return err
+}
+
+// func (f Neo4jAdapter) SingleNodeFromNeo(ctx context.Context, id string) error {
+// 	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
+// 	defer session.Close(ctx)
+
+// 	_, err := session.ExecuteRead(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
+// 		query := "MATCH (n) RETURN (n)"
+// 		result, err := tx.Run(ctx, query, nil)
+// 		if err != nil {
+// 			return nil, err
+// 		}
+
+// 		fmt.Println("______Los gehts, hier alle Nodes________")
+
+// 		for result.Next(ctx) {
+// 			record := result.Record()
+// 			fmt.Println(record.Values...)
+// 		}
+
+// 		return nil, result.Err()
+
+// 	})
+
+// 	return err
+// }

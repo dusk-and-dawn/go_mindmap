@@ -33,3 +33,11 @@ func (f MapActions) GetNodes() error {
 	}
 	return nil
 }
+
+func (f MapActions) ConnectNodesFE(node1 domain.Node, node2 domain.Node) error {
+	err := f.DB.ConnectNodes(context.Background(), node1, node2, "IS_CONNECTED_TO")
+	if err != nil {
+		return err
+	}
+	return nil
+}

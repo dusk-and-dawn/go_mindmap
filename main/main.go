@@ -2,6 +2,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	ihttp "go_mindmap/adapters/inbound/http"
 	"go_mindmap/adapters/outbound/db"
@@ -66,6 +67,10 @@ func main() {
 	mux.HandleFunc("POST /makemap", mh.CreateNode) // dies in den http adapter
 
 	mux.HandleFunc("GET /getall", mh.GetNodes)
+
+	mux.HandleFunc("POST /connect/{id1}/{id2}", mh.ConnectNodes)
+
+	db.Neo4jAdapter.ConnectNodes(mm2neo, context.Background(), a, b, "test")
 
 	log.Fatal(http.ListenAndServe(":8080", mux)) // dies in den http adapter
 

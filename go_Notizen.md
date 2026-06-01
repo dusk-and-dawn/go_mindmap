@@ -29,3 +29,12 @@ HA: Einmal refactoren und besser benennen plus durchdringen hier Bezug nehmen au
 ## Session 6 
 
 Funktionalität zur Wiedergabe von eine Liste an Nodes finalisieren. Node-Verbindung via Endpunkt ermöglichen. 
+
+## Session 7 
+
+ORdentliche Dynamisierung der Relationship-Property-Create Funktion. 
+
+## Session 8
+
+Liste der Nodes im FE ausgeben nicht im Terminal (inklusive Struct Anpassung). Farbe und zwei Nodes via Endpunkt (POST) vergeben. Dafür ein neues Struct erstellen Namens HTTPRelationship mit color, und den beiden zu verbindenden IDs. 
+

@@ -3,7 +3,8 @@ package db
 import (
 	"context"
 	"fmt"
-	"go_mindmap/core/domain"
+
+	// "go_mindmap/core/domain"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/neo4j/neo4j-go-driver/v6/neo4j"
@@ -98,7 +99,7 @@ func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) error {
 		fmt.Println("______Los gehts, hier alle Nodes________")
 
 		for result.Next(ctx) {
-			record := result.Record()
+			record := result.Record() // hier umbauen auf Domain Model inklusive Sortierung und aufbereitung im FE
 			fmt.Println(record.Values...)
 		}
 
@@ -109,17 +110,17 @@ func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) error {
 	return err
 }
 
-func (f Neo4jAdapter) ConnectNodes(ctx context.Context, nodeA domain.Node, nodeB domain.Node, relationshipA string) error {
+func (f Neo4jAdapter) ConnectNodes(ctx context.Context, NameA string, NameB string, color string) error {
 	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
 	defer session.Close(ctx)
 
 	_, err := session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
 		query := `
-		MATCH (a:Node {name: $nameA}), (b:Node{name: $nameB})
-		MERGE (a)-[r:IS_CONNECTED_TO]->(b)
-		Return r
+		MATCH (a:Node {name: $NameA}), (b:Node {name: $NameB})
+		CREATE (a)-[r:COLOR_CONNECTED {color:$color}]->(b)
 		`
-		params := map[string]any{"nameA": nodeA, "nameB": nodeB}
+
+		params := map[string]any{"NameA": NameA, "NameB": NameB, "color": color}
 
 		result, err := tx.Run(ctx, query, params)
 		if err != nil {
@@ -154,3 +155,8 @@ func (f Neo4jAdapter) ConnectNodes(ctx context.Context, nodeA domain.Node, nodeB
 
 // 	return err
 // }
+
+// query := `
+// MATCH (a:Node {name: $IdA}), (b:Node{name: $IdB})
+// CREATE (a)-[r:IS_CONNECTED_TO]->(b)
+// `

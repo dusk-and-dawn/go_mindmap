@@ -70,7 +70,22 @@ func main() {
 
 	mux.HandleFunc("POST /connect/{id1}/{id2}", mh.ConnectNodes)
 
-	db.Neo4jAdapter.ConnectNodes(mm2neo, context.Background(), a, b, "test")
+	// node1, extra := mh.MAusecase.GetNodeByID("01")
+	// node2, extra2 := mh.MAusecase.GetNodeByID("02")
+
+	// if extra == false {
+	// 	fmt.Println("komisch")
+	// }
+	// if extra2 == false {
+	// 	fmt.Println("komisch2")
+	// }
+
+	err = db.Neo4jAdapter.ConnectNodes(mm2neo, context.Background(), "RomanHilftMir", "RomanDerLehrer", "green")
+	if err != nil {
+		fmt.Println(`kaputt3 + $err`)
+		return
+	}
+	fmt.Println("Nodes verbunden")
 
 	log.Fatal(http.ListenAndServe(":8080", mux)) // dies in den http adapter
 

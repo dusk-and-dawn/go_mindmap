@@ -13,8 +13,8 @@ type MapHandler struct {
 }
 
 type HTTPNode struct {
-	Id      string `json:"id"`
-	Content string `json:"content"`
+	Id   string `json:"id"`
+	Name string `json:"name"`
 }
 
 type HTTPNodeList struct {
@@ -37,8 +37,8 @@ func (f MapHandler) GetNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	httpMM := HTTPNode{
-		Id:      mmap.Id,
-		Content: mmap.Content,
+		Id:   mmap.Id,
+		Name: mmap.Name,
 	}
 	barrayID, err := json.Marshal(httpMM)
 
@@ -57,8 +57,8 @@ func (f MapHandler) CreateNode(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "JSON nicht entschlüsselt bekommen", http.StatusBadRequest)
 		return
 	}
-	fmt.Println(newNode.Content)
-	node2neo := domain.Node{Id: newNode.Id, Content: newNode.Content}
+	fmt.Println(newNode.Name)
+	node2neo := domain.Node{Id: newNode.Id, Name: newNode.Name}
 	f.MAusecase.SaveNode(node2neo)
 
 }
@@ -74,7 +74,7 @@ func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) {
 
 	var httpNodes []HTTPNode
 	for _, n := range nodes {
-		httpNodes = append(httpNodes, HTTPNode{Id: n.Id, Content: n.Content})
+		httpNodes = append(httpNodes, HTTPNode{Id: n.Id, Name: n.Name})
 	}
 
 	response := HTTPNodeList{Nodes: httpNodes}

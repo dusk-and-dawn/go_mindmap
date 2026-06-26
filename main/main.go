@@ -22,22 +22,6 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	a := domain.Node{
-		Id:       "01",
-		Content:  "mega test node",
-		Children: []string{"a", "b"},
-		X:        160,
-		Y:        200}
-
-	b := domain.Node{
-		Id:       "02",
-		Content:  "beste Teste",
-		Children: []string{"a", "b"},
-		X:        160,
-		Y:        200}
-
-	c := []domain.Node{a, b}
-
 	driver, err := db.SetupDriver("neo4j://127.0.0.1:7687", "neo4j", "Derunendliche")
 	if err != nil {
 		fmt.Println("kaputt")
@@ -54,10 +38,6 @@ func main() {
 
 	nodes := map[string]domain.Node{}
 
-	for _, value := range c {
-		nodes[value.Id] = value
-	}
-
 	mh := ihttp.MapHandler{MAusecase: usecases.MapActions{Nodes: nodes, DB: mm2neo}}
 
 	mux.HandleFunc("GET /map/{id}", mh.GetNode) // dies in den http adapter
@@ -69,6 +49,8 @@ func main() {
 	mux.HandleFunc("GET /getall", mh.GetNodes)
 
 	mux.HandleFunc("POST /connect", mh.ConnectNodes)
+
+	mux.Handle("GET /", http.FileServer(http.Dir("./frontend")))
 
 	// node1, extra := mh.MAusecase.GetNodeByID("01")
 	// node2, extra2 := mh.MAusecase.GetNodeByID("02")

@@ -123,15 +123,15 @@ func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) ([]domain.Node, error) {
 		// // CHANGE: map Neo4j fields to domain.Node
 		// // ElementId is Neo4j's internal unique ID for the node
 
-		cont, ok := neoNode.Props["name"].(string)
+		name, ok := neoNode.Props["name"].(string)
 		if !ok {
 			err := errors.New("Problem beim Type-Casting von node property zu string aufgetreten.")
 			return nil, err
 		}
 
 		nodes = append(nodes, domain.Node{
-			Id:      neoNode.ElementId,
-			Content: cont,
+			Id:   neoNode.ElementId,
+			Name: name,
 		})
 	}
 

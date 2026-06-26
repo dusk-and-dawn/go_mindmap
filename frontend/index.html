@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mindmap</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.2/cytoscape.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: #1a1a2e;
+            color: #eee;
+        }
+
+        #toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            background: #16213e;
+            border-bottom: 1px solid #0f3460;
+        }
+
+        #toolbar h1 { font-size: 1rem; font-weight: 600; margin-right: auto; }
+
+        button {
+            padding: 6px 14px;
+            border: 1px solid #0f3460;
+            border-radius: 4px;
+            background: #0f3460;
+            color: #eee;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        button:hover { background: #1a4a8a; }
+
+        #status {
+            font-size: 0.8rem;
+            color: #aaa;
+            min-width: 280px;
+        }
+
+        #cy {
+            flex: 1;
+        }
+
+        /* Note bar at the bottom */
+        #note {
+            font-size: 0.75rem;
+            color: #666;
+            padding: 4px 16px;
+            background: #16213e;
+            border-top: 1px solid #0f3460;
+        }
+    </style>
+</head>
+<body>
+
+<div id="toolbar">
+    <h1>Mindmap</h1>
+    <button id="btn-add">+ Add Node</button>
+    <button id="btn-reload">Reload</button>
+    <span id="status">Loading nodes…</span>
+</div>
+
+<div id="cy"></div>
+
+<div id="note">
+    Edges are stored in Neo4j but not yet returned by the API — they are visible only in the current session.
+</div>
+
+<script>
+    // ── Cytoscape setup ───────────────────────────────────────────────────────
+
+    const cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: [],
+        style: [
+            {
+                selector: 'node',
+                style: {
+                    'background-color': '#0f3460',
+                    'border-color': '#4a90e2',
+                    'border-width': 2,
+                    'label': 'data(label)',
+                    'color': '#eee',
+                    'font-size': '12px',
+                    'text-valign': 'center',
+                    'text-halign': 'center',
+                    'width': 'label',
+                    'height': 'label',
+                    'padding': '10px',
+                    'shape': 'round-rectangle',
+                }
+            },
+            {
+                selector: 'node.selected',
+                style: {
+                    'border-color': '#f5a623',
+                    'border-width': 3,
+                    'background-color': '#1a4a8a',
+                }
+            },
+            {
+                selector: 'edge',
+                style: {
+                    'width': 2,
+                    'line-color': 'data(color)',
+                    'target-arrow-color': 'data(color)',
+                    'target-arrow-shape': 'triangle',
+                    'curve-style': 'bezier',
+                    'label': 'data(color)',
+                    'font-size': '10px',
+                    'color': '#aaa',
+                    'text-rotation': 'autorotate',
+                }
+            }
+        ],
+        layout: { name: 'grid' }
+    });
+
+    // ── State ─────────────────────────────────────────────────────────────────
+
+    let selectedNode = null;
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+
+    function setStatus(msg) {
+        document.getElementById('status').textContent = msg;
+    }
+
+    // ── Load nodes from backend ───────────────────────────────────────────────
+
+    async function reloadNodes() {
+        setStatus('Loading…');
+        try {
+            const res = await fetch('/getall');
+            if (!res.ok) { setStatus('Failed to load nodes'); return; }
+            const data = await res.json();
+
+            // preserve existing edges (session-only) before clearing
+            const existingEdges = cy.edges().map(e => ({
+                source: e.data('source'),
+                target: e.data('target'),
+                color: e.data('color'),
+            }));
+
+            cy.elements().remove();
+
+            (data.nodes || []).forEach(n => {
+                cy.add({ group: 'nodes', data: { id: n.id, label: n.name, content: n.name } });
+            });
+
+            // restore session edges whose endpoints still exist
+            existingEdges.forEach(e => {
+                if (cy.getElementById(e.source).length && cy.getElementById(e.target).length) {
+                    addEdgeLocally(e.source, e.target, e.color);
+                }
+            });
+
+            cy.layout({ name: 'cose', animate: false }).run();
+            setStatus(`${data.nodes?.length ?? 0} nodes loaded — click a node to select it`);
+        } catch (err) {
+            setStatus('Error: ' + err.message);
+        }
+    }
+
+    // ── Create node ───────────────────────────────────────────────────────────
+
+    document.getElementById('btn-add').addEventListener('click', async () => {
+        const name = prompt('Node name:');
+        if (!name?.trim()) return;
+
+        setStatus('Creating…');
+        try {
+            const res = await fetch('/makemap', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                // id is ignored by the backend; content becomes the Neo4j "name" property
+                body: JSON.stringify({ id: '', name: name.trim() }),
+            });
+
+            if (!res.ok) { setStatus('Failed to create node'); return; }
+            await reloadNodes();
+        } catch (err) {
+            setStatus('Error: ' + err.message);
+        }
+    });
+
+    document.getElementById('btn-reload').addEventListener('click', reloadNodes);
+
+    // ── Connect nodes (two-click) ─────────────────────────────────────────────
+
+    cy.on('tap', 'node', async function(evt) {
+        const node = evt.target;
+
+        if (!selectedNode) {
+            // first click: select
+            selectedNode = node;
+            node.addClass('selected');
+            setStatus(`"${node.data('label')}" selected — click another node to connect`);
+            return;
+        }
+
+        if (selectedNode.id() === node.id()) {
+            // clicked same node: deselect
+            selectedNode.removeClass('selected');
+            selectedNode = null;
+            setStatus('Selection cleared');
+            return;
+        }
+
+        // second click: connect
+        const color = prompt('Connection color (e.g. blue, #ff0000):', 'blue');
+        const nameA = selectedNode.data('content');
+        const nameB = node.data('content');
+        const srcId  = selectedNode.id();
+        const tgtId  = node.id();
+
+        selectedNode.removeClass('selected');
+        selectedNode = null;
+
+        if (!color?.trim()) { setStatus('Connection cancelled'); return; }
+
+        setStatus('Connecting…');
+        try {
+            const res = await fetch('/connect', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nameA, nameB, color: color.trim() }),
+            });
+
+            if (!res.ok) { setStatus('Failed to connect nodes'); return; }
+
+            addEdgeLocally(srcId, tgtId, color.trim());
+            setStatus(`Connected "${nameA}" → "${nameB}"`);
+        } catch (err) {
+            setStatus('Error: ' + err.message);
+        }
+    });
+
+    // ── Add edge to graph (session-only until GET /connections exists) ─────────
+
+    function addEdgeLocally(sourceId, targetId, color) {
+        const edgeId = `${sourceId}__${targetId}`;
+        if (cy.getElementById(edgeId).length) return; // avoid duplicate
+        cy.add({ group: 'edges', data: { id: edgeId, source: sourceId, target: targetId, color } });
+    }
+
+    // ── Click on background to deselect ──────────────────────────────────────
+
+    cy.on('tap', function(evt) {
+        if (evt.target === cy && selectedNode) {
+            selectedNode.removeClass('selected');
+            selectedNode = null;
+            setStatus('Selection cleared');
+        }
+    });
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+
+    reloadNodes();
+</script>
+</body>
+</html>

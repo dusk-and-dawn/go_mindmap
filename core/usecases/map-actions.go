@@ -19,7 +19,7 @@ func (f MapActions) GetNodeByID(id string) (domain.Node, bool) {
 }
 
 func (f MapActions) SaveNode(node domain.Node) error {
-	err := f.DB.MindmapToNeo(context.Background(), node.Content)
+	err := f.DB.MindmapToNeo(context.Background(), node.Name)
 	if err != nil {
 		return err
 	}

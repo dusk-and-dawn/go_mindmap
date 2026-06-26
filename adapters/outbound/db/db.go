@@ -2,9 +2,9 @@ package db
 
 import (
 	"context"
+	"errors"
 	"fmt"
-
-	// "go_mindmap/core/domain"
+	"go_mindmap/core/domain"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/neo4j/neo4j-go-driver/v6/neo4j"
@@ -65,14 +65,14 @@ func SetupDriver(uri, username, password string) (neo4j.Driver, error) {
 	return driver, nil
 }
 
-func (f Neo4jAdapter) MindmapToNeo(ctx context.Context, topicName string) error {
+func (f Neo4jAdapter) MindmapToNeo(ctx context.Context, content string) error {
 	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
 	defer session.Close(ctx)
 
 	_, err := session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
 
 		query := "MERGE (t:Node {name: $name}) RETURN t"
-		params := map[string]any{"name": topicName}
+		params := map[string]any{"name": content}
 
 		result, err := tx.Run(ctx, query, params)
 		if err != nil {
@@ -85,32 +85,60 @@ func (f Neo4jAdapter) MindmapToNeo(ctx context.Context, topicName string) error 
 	return err
 }
 
-func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) error {
-	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
-	defer session.Close(ctx)
+func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) ([]domain.Node, error) {
+	// session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
+	// defer session.Close(ctx)
+	query := "MATCH (n) RETURN (n)"
+	// raw, err := neo4j.ExecuteQuery(ctx, func(tx neo4j.ManagedTransaction) (neo4j.Result, error) {
 
-	_, err := session.ExecuteRead(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
-		query := "MATCH (n) RETURN (n)"
-		result, err := tx.Run(ctx, query, nil)
-		if err != nil {
+	// 	result, err := tx.Run(ctx, query, nil)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// 	return result, error
+	// })
+	raw, err := neo4j.ExecuteQuery(ctx, f.Driver, query, map[string]any{}, neo4j.EagerResultTransformer, neo4j.ExecuteQueryWithDatabase("neo4j"))
+
+	if err != nil {
+		return nil, err
+	}
+
+	var nodes []domain.Node
+	for _, record := range raw.Records {
+		fmt.Println(record.Values[0])
+
+		// fmt.Println(record.Values[1])
+
+		neoNode, ok := record.Values[0].(neo4j.Node)
+		if !ok {
+			err := errors.New("98 Problems")
+			// 	// CHANGE: skip records that don't cast correctly rather than crashing
+			fmt.Println("could not cast record to neo4j.Node, skipping")
 			return nil, err
 		}
 
-		fmt.Println("______Los gehts, hier alle Nodes________")
+		// CHANGE: extract the "name" property — this is what MindmapToNeo stores
+		// name, _ := neoNode.Props["name"].(string)
 
-		for result.Next(ctx) {
-			record := result.Record() // hier umbauen auf Domain Model inklusive Sortierung und aufbereitung im FE
-			fmt.Println(record.Values...)
+		// // CHANGE: map Neo4j fields to domain.Node
+		// // ElementId is Neo4j's internal unique ID for the node
+
+		cont, ok := neoNode.Props["name"].(string)
+		if !ok {
+			err := errors.New("Problem beim Type-Casting von node property zu string aufgetreten.")
+			return nil, err
 		}
 
-		return nil, result.Err()
+		nodes = append(nodes, domain.Node{
+			Id:      neoNode.ElementId,
+			Content: cont,
+		})
+	}
 
-	})
-
-	return err
+	return nodes, nil
 }
 
-func (f Neo4jAdapter) ConnectNodes(ctx context.Context, NameA string, NameB string, color string) error {
+func (f Neo4jAdapter) ConnectNodes(ctx context.Context, nameA string, nameB string, color string) error {
 	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
 	defer session.Close(ctx)
 
@@ -120,7 +148,7 @@ func (f Neo4jAdapter) ConnectNodes(ctx context.Context, NameA string, NameB stri
 		CREATE (a)-[r:COLOR_CONNECTED {color:$color}]->(b)
 		`
 
-		params := map[string]any{"NameA": NameA, "NameB": NameB, "color": color}
+		params := map[string]any{"NameA": nameA, "NameB": nameB, "color": color}
 
 		result, err := tx.Run(ctx, query, params)
 		if err != nil {

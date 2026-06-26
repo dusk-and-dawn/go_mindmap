@@ -21,6 +21,12 @@ type HTTPNodeList struct {
 	Nodes []HTTPNode `json:"nodes"`
 }
 
+type HTTPRelationship struct {
+	NameA string `json:"nameA"`
+	NameB string `json:"nameB"`
+	Color string `json:"color"`
+}
+
 func (f MapHandler) GetNode(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
 
@@ -58,20 +64,28 @@ func (f MapHandler) CreateNode(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) {
-	err := f.MAusecase.GetNodes()
+	nodes, err := f.MAusecase.GetNodes()
 
 	if err != nil {
 		fmt.Println("kaputt aus GetNodes Http")
+		http.Error(w, "could not fetch nodes", http.StatusInternalServerError)
 		return
 	}
-	snarkyComment, err := json.Marshal("check the Terminal")
 
-	if err != nil {
-		fmt.Println(err)
+	var httpNodes []HTTPNode
+	for _, n := range nodes {
+		httpNodes = append(httpNodes, HTTPNode{Id: n.Id, Content: n.Content})
 	}
-	w.Write(snarkyComment)
-	return
 
+	response := HTTPNodeList{Nodes: httpNodes}
+	payload, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, "99 Problems", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(payload)
 }
 
 func (f MapHandler) ShowWaiting(w http.ResponseWriter, r *http.Request) {
@@ -82,7 +96,7 @@ func (f MapHandler) ShowWaiting(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f MapHandler) ConnectNodes(w http.ResponseWriter, r *http.Request) {
-	var newRelationship string
+	var newRelationship HTTPRelationship
 	// id1 := r.PathValue("id1")
 	// id2 := r.PathValue("id2")
 	err := json.NewDecoder(r.Body).Decode(&newRelationship)

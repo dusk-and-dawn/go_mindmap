@@ -26,16 +26,16 @@ func (f MapActions) SaveNode(node domain.Node) error {
 	return nil
 }
 
-func (f MapActions) GetNodes() error {
-	err := f.DB.NodesFromNeo(context.Background())
+func (f MapActions) GetNodes() ([]domain.Node, error) {
+	nodes, err := f.DB.NodesFromNeo(context.Background())
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return nodes, nil
 }
 
-func (f MapActions) ConnectNodesFE(IdA string, IdB string) error {
-	err := f.DB.ConnectNodes(context.Background(), IdA, IdB, "IS_CONNECTED_TO")
+func (f MapActions) ConnectNodesFE(nameA string, nameB string, color string) error {
+	err := f.DB.ConnectNodes(context.Background(), nameA, nameB, color)
 	if err != nil {
 		return err
 	}

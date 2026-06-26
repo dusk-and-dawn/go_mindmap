@@ -68,7 +68,7 @@ func main() {
 
 	mux.HandleFunc("GET /getall", mh.GetNodes)
 
-	mux.HandleFunc("POST /connect/{id1}/{id2}", mh.ConnectNodes)
+	mux.HandleFunc("POST /connect", mh.ConnectNodes)
 
 	// node1, extra := mh.MAusecase.GetNodeByID("01")
 	// node2, extra2 := mh.MAusecase.GetNodeByID("02")

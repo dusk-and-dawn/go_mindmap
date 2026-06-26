@@ -38,3 +38,8 @@ ORdentliche Dynamisierung der Relationship-Property-Create Funktion.
 
 Liste der Nodes im FE ausgeben nicht im Terminal (inklusive Struct Anpassung). Farbe und zwei Nodes via Endpunkt (POST) vergeben. Dafür ein neues Struct erstellen Namens HTTPRelationship mit color, und den beiden zu verbindenden IDs. 
 
+## Session 
+
+Aufräumen der Modelle - hier Namensgebung anpassen, keine ungleichen Namen für gleichen Inhalt (Name - Content). 
+Farbe und zwei Nodes via Endpunkt (POST) vergeben. Dafür ein neues Struct erstellen Namens HTTPRelationship mit color, und den beiden zu verbindenden IDs. 
+Optional: noch X, Y hinzufügen. 

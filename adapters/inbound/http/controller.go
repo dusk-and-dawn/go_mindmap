@@ -105,5 +105,10 @@ func (f MapHandler) ConnectNodes(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "JSON nicht entschlüsselt bekommen", http.StatusBadRequest)
 		return
 	}
-	// f.MAusecase.ConnectNodesFE(id1, id2)
+	err = f.MAusecase.ConnectNodesFE(newRelationship.NameA, newRelationship.NameB, newRelationship.Color)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Connection failed between nodes", http.StatusInternalServerError)
+		return
+	}
 }

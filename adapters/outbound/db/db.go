@@ -141,7 +141,7 @@ func (f Neo4jAdapter) ConnectNodes(ctx context.Context, nameA string, nameB stri
 }
 
 func (f Neo4jAdapter) GetConnections(ctx context.Context) ([]domain.Relationship, error) {
-	query := "MATCH (a)-[r]->(b) RETURN r"
+	query := "MATCH (a)-[r]->(b) RETURN type(r), r"
 	raw, err := neo4j.ExecuteQuery(ctx, f.Driver, query, map[string]any{}, neo4j.EagerResultTransformer, neo4j.ExecuteQueryWithDatabase("neo4j"))
 
 	if err != nil {
@@ -167,8 +167,7 @@ func (f Neo4jAdapter) GetConnections(ctx context.Context) ([]domain.Relationship
 		color, ok := neoCon.Props["color"].(string)
 		if !ok {
 			color = "#888888"
-			err := errors.New("Problem beim Type-Casting von relationship property zu string aufgetreten.")
-			return nil, err
+			// err := errors.New("Problem beim Type-Casting von relationship property zu string aufgetreten.")
 		}
 
 		cons = append(cons, domain.Relationship{

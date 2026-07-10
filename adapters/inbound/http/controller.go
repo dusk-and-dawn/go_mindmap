@@ -104,7 +104,7 @@ func (f MapHandler) GetConnections(w http.ResponseWriter, r *http.Request) {
 
 	var httpCons []HTTPRelationship
 	for _, n := range connections {
-		httpCons = append(httpCons, HTTPRelationship{NameA: n.NameA, NameB: n.NameB, Color: n.Color})
+		httpCons = append(httpCons, HTTPRelationship{NameA: n.NameA, NameB: n.NameB, Kind: n.Kind, Color: n.Color})
 	}
 
 	response := HTTPRelationshipList{Relationships: httpCons}

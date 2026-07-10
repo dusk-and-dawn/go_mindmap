@@ -219,6 +219,7 @@
 
         // second click: connect
         const color = prompt('Connection color (e.g. blue, #ff0000):', 'blue');
+        const kind = prompt('Connection type');
         const nameA = selectedNode.data('content');
         const nameB = node.data('content');
         const srcId  = selectedNode.id();
@@ -239,7 +240,7 @@
 
             if (!res.ok) { setStatus('Failed to connect nodes'); return; }
 
-            addEdgeLocally(srcId, tgtId, color.trim());
+            addEdgeLocally(srcId, tgtId, kind, color.trim());
             setStatus(`Connected "${nameA}" → "${nameB}"`);
         } catch (err) {
             setStatus('Error: ' + err.message);

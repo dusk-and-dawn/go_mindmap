@@ -21,9 +21,14 @@ type HTTPNodeList struct {
 	Nodes []HTTPNode `json:"nodes"`
 }
 
+type HTTPRelationshipList struct {
+	Relationships []HTTPRelationship `json:"relationships"`
+}
+
 type HTTPRelationship struct {
 	NameA string `json:"nameA"`
 	NameB string `json:"nameB"`
+	Kind  string `json:"kind"`
 	Color string `json:"color"`
 }
 
@@ -88,6 +93,31 @@ func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) {
 	w.Write(payload)
 }
 
+func (f MapHandler) GetConnections(w http.ResponseWriter, r *http.Request) {
+	connections, err := f.MAusecase.GetConnections()
+
+	if err != nil {
+		fmt.Println("kaputt aus GetNodes Http")
+		http.Error(w, "could not fetch nodes", http.StatusInternalServerError)
+		return
+	}
+
+	var httpCons []HTTPRelationship
+	for _, n := range connections {
+		httpCons = append(httpCons, HTTPRelationship{NameA: n.NameA, NameB: n.NameB, Color: n.Color})
+	}
+
+	response := HTTPRelationshipList{Relationships: httpCons}
+	payload, err := json.Marshal(response)
+	if err != nil {
+		http.Error(w, "99 Problems", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(payload)
+}
+
 func (f MapHandler) ShowWaiting(w http.ResponseWriter, r *http.Request) {
 	msg := "Hier noch nix im Frontend"
 
@@ -105,7 +135,7 @@ func (f MapHandler) ConnectNodes(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "JSON nicht entschlüsselt bekommen", http.StatusBadRequest)
 		return
 	}
-	err = f.MAusecase.ConnectNodesFE(newRelationship.NameA, newRelationship.NameB, newRelationship.Color)
+	err = f.MAusecase.ConnectNodesFE(newRelationship.NameA, newRelationship.NameB, newRelationship.Kind, newRelationship.Color)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, "Connection failed between nodes", http.StatusInternalServerError)

@@ -34,10 +34,18 @@ func (f MapActions) GetNodes() ([]domain.Node, error) {
 	return nodes, nil
 }
 
-func (f MapActions) ConnectNodesFE(nameA string, nameB string, color string) error {
-	err := f.DB.ConnectNodes(context.Background(), nameA, nameB, color)
+func (f MapActions) ConnectNodesFE(nameA string, nameB string, kind string, color string) error {
+	err := f.DB.ConnectNodes(context.Background(), nameA, nameB, kind, color)
 	if err != nil {
 		return err
 	}
 	return nil
+}
+
+func (f MapActions) GetConnections() ([]domain.Relationship, error) {
+	connections, err := f.DB.GetConnections(context.Background())
+	if err != nil {
+		return nil, err
+	}
+	return connections, nil
 }

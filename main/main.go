@@ -52,6 +52,8 @@ func main() {
 
 	mux.Handle("GET /", http.FileServer(http.Dir("./frontend")))
 
+	mux.HandleFunc("GET /connections", mh.GetConnections)
+
 	// node1, extra := mh.MAusecase.GetNodeByID("01")
 	// node2, extra2 := mh.MAusecase.GetNodeByID("02")
 
@@ -62,7 +64,7 @@ func main() {
 	// 	fmt.Println("komisch2")
 	// }
 
-	err = db.Neo4jAdapter.ConnectNodes(mm2neo, context.Background(), "RomanHilftMir", "RomanDerLehrer", "green")
+	err = db.Neo4jAdapter.ConnectNodes(mm2neo, context.Background(), "RomanHilftMir", "RomanDerLehrer", "got_swag", "green")
 	if err != nil {
 		fmt.Println(`kaputt3 + $err`)
 		return

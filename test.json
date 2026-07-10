@@ -1,0 +1,1905 @@
+[
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "end": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "relationship": {
+              "identity": {
+                "low": 1,
+                "high": 268435712
+              },
+              "start": {
+                "low": 1,
+                "high": 0
+              },
+              "end": {
+                "low": 2,
+                "high": 0
+              },
+              "type": "IS_CONNECTED",
+              "properties": {},
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1152922604118474753",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "end": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 268435968
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "TEST",
+              "properties": {},
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1152923703630102530",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 268436224
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "NEW",
+              "properties": {},
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1152924803141730306",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 268436480
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "HAPPYTEST",
+              "properties": {},
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1152925902653358082",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 268436736
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1152927002164985858",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 268961024
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1155178801978671106",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 269485312
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1157430601792356354",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 270009600
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1159682401606041602",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 270533888
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1161934201419726850",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 271058176
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1164186001233412098",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 271582464
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1166437801047097346",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 272106752
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1168689600860782594",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 272631040
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1170941400674467842",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 273155328
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1173193200488153090",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 273679616
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1175445000301838338",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 274203904
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1177696800115523586",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 274728192
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1179948599929208834",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 275252480
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1182200399742894082",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 2,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanHilftMir"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+        },
+        "end": {
+          "identity": {
+            "low": 1,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "RomanDerLehrer"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 2,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanHilftMir"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2"
+            },
+            "relationship": {
+              "identity": {
+                "low": 2,
+                "high": 275776768
+              },
+              "start": {
+                "low": 2,
+                "high": 0
+              },
+              "end": {
+                "low": 1,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "green"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1184452199556579330",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:2",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            },
+            "end": {
+              "identity": {
+                "low": 1,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "RomanDerLehrer"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:1"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 3,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "Roman"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:3"
+        },
+        "end": {
+          "identity": {
+            "low": 4,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "David"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:4"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 3,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "Roman"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:3"
+            },
+            "relationship": {
+              "identity": {
+                "low": 3,
+                "high": 268436736
+              },
+              "start": {
+                "low": 3,
+                "high": 0
+              },
+              "end": {
+                "low": 4,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "blue"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1152927002164985859",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:3",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:4"
+            },
+            "end": {
+              "identity": {
+                "low": 4,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "David"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:4"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  },
+  {
+    "keys": [
+      "p"
+    ],
+    "length": 1,
+    "_fields": [
+      {
+        "start": {
+          "identity": {
+            "low": 3,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "Roman"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:3"
+        },
+        "end": {
+          "identity": {
+            "low": 4,
+            "high": 0
+          },
+          "labels": [
+            "Node"
+          ],
+          "properties": {
+            "name": "David"
+          },
+          "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:4"
+        },
+        "segments": [
+          {
+            "start": {
+              "identity": {
+                "low": 3,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "Roman"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:3"
+            },
+            "relationship": {
+              "identity": {
+                "low": 3,
+                "high": 268961024
+              },
+              "start": {
+                "low": 3,
+                "high": 0
+              },
+              "end": {
+                "low": 4,
+                "high": 0
+              },
+              "type": "COLOR_CONNECTED",
+              "properties": {
+                "color": "red"
+              },
+              "elementId": "5:e390c695-f661-412e-85c8-0fee58f9eb2c:1155178801978671107",
+              "startNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:3",
+              "endNodeElementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:4"
+            },
+            "end": {
+              "identity": {
+                "low": 4,
+                "high": 0
+              },
+              "labels": [
+                "Node"
+              ],
+              "properties": {
+                "name": "David"
+              },
+              "elementId": "4:e390c695-f661-412e-85c8-0fee58f9eb2c:4"
+            }
+          }
+        ],
+        "length": 1
+      }
+    ],
+    "_fieldLookup": {
+      "p": 0
+    }
+  }
+]

@@ -138,10 +138,11 @@
     async function reloadNodes() {
         setStatus('Loading…');
         try {
-            const [nodesRes, connsRes] = await Promise.all([
-                fetch('/getall'),
-                fetch('/connections'),
-            ]);
+            // const [nodesRes, connsRes] = await Promise.all([
+            //     fetch('/getall'),
+            //     fetch('/connections'),
+            // ]);
+            const collRes = await fetch('/getComplete'); 
 
             if (!nodesRes.ok) { setStatus('Failed to load nodes'); return; }
             const data = await nodesRes.json();

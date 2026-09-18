@@ -17,6 +17,11 @@ type HTTPNode struct {
 	Name string `json:"name"`
 }
 
+type HTTPCollection struct {
+	Nodes         []HTTPNode         `json:"nodes"`
+	Relationships []HTTPRelationship `json:"relationships"`
+}
+
 type HTTPNodeList struct {
 	Nodes []HTTPNode `json:"nodes"`
 }
@@ -35,7 +40,7 @@ type HTTPRelationship struct {
 func (f MapHandler) GetNode(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
 
-	mmap, mmap_bool := f.MAusecase.GetNodeByID(id) // Roman fragen wie ich dies anpassen muss um JSON zurück zu geben
+	mmap, mmap_bool := f.MAusecase.GetNodeByID(id)
 
 	if !mmap_bool {
 		http.Error(w, "Keine Node gefunden mit der ID", http.StatusNotFound)
@@ -88,6 +93,27 @@ func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "99 Problems", http.StatusInternalServerError)
 		return
 	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(payload)
+}
+
+func (f MapHandler) GetComplete(w http.ResponseWriter, r *http.Request) {
+	coll, err := f.MAusecase.GetAll()
+	if err != nil {
+		fmt.Println("Error fetching all db entries")
+		http.Error(w, "GetAll fehlgeschlagen im controller", http.StatusInternalServerError)
+	}
+	var listNodes []HTTPNode
+	for id, content := range coll.Nodes {
+		listNodes = append(listNodes, HTTPNode{Id: id, Name: content.Name})
+	}
+	var listRels []HTTPRelationship
+	for _, content := range coll.Relationships {
+		listRels = append(listRels, HTTPRelationship{NameA: content.NameA, NameB: content.NameB, Kind: content.Kind, Color: content.Color})
+	}
+
+	payload, err := json.Marshal(HTTPCollection{listNodes, listRels})
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)

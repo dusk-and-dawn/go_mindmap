@@ -148,13 +148,11 @@ func (f Neo4jAdapter) GetConnections(ctx context.Context) ([]domain.Relationship
 }
 
 func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
-	//query := "MATCH (a), ()-[r]->()  RETURN a, r"
 	query := "MATCH (a) OPTIONAL MATCH (a)-[r]->(b) RETURN a, r, b"
 	raw, err := neo4j.ExecuteQuery(ctx, f.Driver, query, map[string]any{}, neo4j.EagerResultTransformer, neo4j.ExecuteQueryWithDatabase("neo4j"))
 
 	var coll domain.Collection
 	coll.Nodes = make(map[string]domain.Node)
-	// coll.Relationships = make([]domain.Relationships, 0)
 	fmt.Println(coll)
 
 	if err != nil {
@@ -162,9 +160,6 @@ func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
 	}
 
 	for _, record := range raw.Records {
-		// fmt.Println(record.AsMap())
-		// interim := record.AsMap()
-		// fmt.Println(interim)
 		aRaw, exists := record.Get("a")
 		if !exists {
 			return coll, errors.New("got result without valid node - should not happen")
@@ -183,16 +178,16 @@ func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
 		}
 		coll.Nodes[aId] = domain.Node{Id: aId, Name: aName}
 		rRaw, exists := record.Get("r")
-		if !exists {
+		if !exists || rRaw == nil {
 			continue
 		}
 		bRaw, exists := record.Get("b")
-		if !exists {
+		if !exists || bRaw == nil {
 			continue
 		}
 		b, ok := bRaw.(neo4j.Node)
 		if !ok {
-			return coll, errors.New("type casting zur Node schlug fehl - should not happen")
+			return coll, errors.New("B - type casting zur Node schlug fehl - should not happen")
 		}
 		bName, ok := b.Props["name"].(string)
 		if !ok {
@@ -210,10 +205,7 @@ func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
 		if !ok {
 			return coll, errors.New("did not find relationship color - snh")
 		}
-		// rId := r.GetId()
-		// if !ok {
-		// 	return nil, errors.New("did not find relationship id - snh")
-		// }
+
 		coll.Relationships = append(coll.Relationships, domain.Relationship{NameA: aName, NameB: bName, Kind: rKind, Color: rColor})
 	}
 	return coll, nil

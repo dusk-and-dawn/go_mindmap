@@ -51,6 +51,8 @@ func main() {
 
 	mux.HandleFunc("GET /getall", mh.GetNodes)
 
+	mux.HandleFunc("GET /getComplete", mh.GetComplete)
+
 	mux.HandleFunc("POST /connect", mh.ConnectNodes)
 
 	mux.Handle("GET /", http.FileServer(http.Dir("./frontend")))

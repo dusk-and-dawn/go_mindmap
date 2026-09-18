@@ -57,3 +57,7 @@ func (f MapActions) GetConnections() ([]domain.Relationship, error) {
 	}
 	return connections, nil
 }
+
+func (f MapActions) GetAll() (domain.Collection, error) {
+	return f.DB.GetAll(context.Background())
+}

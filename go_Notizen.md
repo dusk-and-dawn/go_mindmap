@@ -56,3 +56,6 @@ Mit den Constraints arbeiten: https://neo4j.com/docs/cdc/current/procedures/elem
 Dafür brauchen wir ein Doover der DB und müssen sämtliche POST funktionen darauf anpassen, dass sie die ID welche wir selbst anlegen mitgeben  
 Neue Query die sowohl nodes als auch relationships zurück gibt 
 Daraus dann den Graphen laden 
+
+## Session 12 
+Frontend selbst schreiben 

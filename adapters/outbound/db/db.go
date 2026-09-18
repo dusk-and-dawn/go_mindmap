@@ -14,40 +14,6 @@ type Neo4jAdapter struct {
 	Driver neo4j.Driver
 }
 
-// func setUpdb() (*sql.db, error) { //Roman fragen nach *xyz logik
-// 	db, err := sql.Open("sqlite3", "./mindmap.db")
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	//defer db.Close()
-// 	creationStatement := `
-// 	CREATE TABLE IF NOT EXISTS mmaps (
-// 		id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-// 		node JSON
-// 	);
-// 	`
-
-// 	_, err = db.Exec(creationStatement)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 		return nil, err
-// 	}
-// 	log.Println("Table 'mmap' angelegt")
-// 	return db, nil
-// }
-
-// func CommitMmapTodb(f *sql.db, g domain.Node) error {
-// 	query := "INSERT INTO mmaps(node) VALUES(?) RETURNING id"
-// 	_, err := f.Exec(query, g.Content)
-// 	if err != nil {
-// 		log.Printf("failure to insert node: %v", err)
-// 		return err
-// 	}
-
-// 	log.Println("Node saved in db")
-// 	return nil
-// }
-
 func SetupDriver(uri, username, password string) (neo4j.Driver, error) {
 	driver, err := neo4j.NewDriver(uri, neo4j.BasicAuth(username, password, ""))
 	if err != nil {
@@ -65,14 +31,14 @@ func SetupDriver(uri, username, password string) (neo4j.Driver, error) {
 	return driver, nil
 }
 
-func (f Neo4jAdapter) MindmapToNeo(ctx context.Context, content string) error {
+func (f Neo4jAdapter) MindmapToNeo(ctx context.Context, node domain.Node) error {
 	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
 	defer session.Close(ctx)
 
 	_, err := session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
 
-		query := "MERGE (t:Node {name: $name}) RETURN t"
-		params := map[string]any{"name": content}
+		query := "MERGE (t:Node {name: $name, id:$id}) RETURN t"
+		params := map[string]any{"name": node.Name, "id": node.Id}
 
 		result, err := tx.Run(ctx, query, params)
 		if err != nil {
@@ -95,7 +61,7 @@ func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) ([]domain.Node, error) {
 
 	var nodes []domain.Node
 	for _, record := range raw.Records {
-		fmt.Println(record.Values[0])
+		//fmt.Println(record.Values[0])
 
 		neoNode, ok := record.Values[0].(neo4j.Node)
 		if !ok {
@@ -150,7 +116,7 @@ func (f Neo4jAdapter) GetConnections(ctx context.Context) ([]domain.Relationship
 
 	var cons []domain.Relationship
 	for _, record := range raw.Records {
-		fmt.Println(record.Values[0])
+		//fmt.Println(record.Values[0])
 		relType, _ := record.Values[0].(string)
 		neoCon, ok := record.Values[1].(neo4j.Relationship)
 		if !ok {
@@ -181,32 +147,74 @@ func (f Neo4jAdapter) GetConnections(ctx context.Context) ([]domain.Relationship
 	return cons, nil
 }
 
-// func (f Neo4jAdapter) SingleNodeFromNeo(ctx context.Context, id string) error {
-// 	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeRead})
-// 	defer session.Close(ctx)
+func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
+	//query := "MATCH (a), ()-[r]->()  RETURN a, r"
+	query := "MATCH (a) OPTIONAL MATCH (a)-[r]->(b) RETURN a, r, b"
+	raw, err := neo4j.ExecuteQuery(ctx, f.Driver, query, map[string]any{}, neo4j.EagerResultTransformer, neo4j.ExecuteQueryWithDatabase("neo4j"))
 
-// 	_, err := session.ExecuteRead(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
-// 		query := "MATCH (n) RETURN (n)"
-// 		result, err := tx.Run(ctx, query, nil)
-// 		if err != nil {
-// 			return nil, err
-// 		}
+	var coll domain.Collection
+	coll.Nodes = make(map[string]domain.Node)
+	// coll.Relationships = make([]domain.Relationships, 0)
+	fmt.Println(coll)
 
-// 		fmt.Println("______Los gehts, hier alle Nodes________")
+	if err != nil {
+		return coll, err
+	}
 
-// 		for result.Next(ctx) {
-// 			record := result.Record()
-// 			fmt.Println(record.Values...)
-// 		}
-
-// 		return nil, result.Err()
-
-// 	})
-
-// 	return err
-// }
-
-// query := `
-// MATCH (a:Node {name: $IdA}), (b:Node{name: $IdB})
-// CREATE (a)-[r:IS_CONNECTED_TO]->(b)
-// `
+	for _, record := range raw.Records {
+		// fmt.Println(record.AsMap())
+		// interim := record.AsMap()
+		// fmt.Println(interim)
+		aRaw, exists := record.Get("a")
+		if !exists {
+			return coll, errors.New("got result without valid node - should not happen")
+		}
+		a, ok := aRaw.(neo4j.Node)
+		if !ok {
+			return coll, errors.New("type casting zur Node schlug fehl - should not happen")
+		}
+		aId, ok := a.Props["id"].(string)
+		if !ok {
+			return coll, errors.New("type casting Id of node failed -snh")
+		}
+		aName, ok := a.Props["name"].(string)
+		if !ok {
+			return coll, errors.New("type casting name of node failed -snh")
+		}
+		coll.Nodes[aId] = domain.Node{Id: aId, Name: aName}
+		rRaw, exists := record.Get("r")
+		if !exists {
+			continue
+		}
+		bRaw, exists := record.Get("b")
+		if !exists {
+			continue
+		}
+		b, ok := bRaw.(neo4j.Node)
+		if !ok {
+			return coll, errors.New("type casting zur Node schlug fehl - should not happen")
+		}
+		bName, ok := b.Props["name"].(string)
+		if !ok {
+			return coll, errors.New("type casting B node name failed when casting for assigning relationship endpoint - snh")
+		}
+		r, ok := rRaw.(neo4j.Relationship)
+		if !ok {
+			return coll, errors.New("type casting zum Relationship schlug fehl - should not happen")
+		}
+		rKind, ok := r.Props["kind"].(string)
+		if !ok {
+			return coll, errors.New("kind not found in relationship - snh")
+		}
+		rColor, ok := r.Props["color"].(string)
+		if !ok {
+			return coll, errors.New("did not find relationship color - snh")
+		}
+		// rId := r.GetId()
+		// if !ok {
+		// 	return nil, errors.New("did not find relationship id - snh")
+		// }
+		coll.Relationships = append(coll.Relationships, domain.Relationship{NameA: aName, NameB: bName, Kind: rKind, Color: rColor})
+	}
+	return coll, nil
+}

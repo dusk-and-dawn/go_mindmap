@@ -11,3 +11,8 @@ type Relationship struct {
 	Kind  string
 	Color string
 }
+
+type Collection struct {
+	Nodes         map[string]Node
+	Relationships []Relationship
+}

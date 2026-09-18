@@ -47,3 +47,12 @@ Optional: noch X, Y hinzufügen.
 ## Session 10 
 
 Wie queried man relationships richtig - rausfinden. 
+
+## Session 11 
+Script aufsetzen für Constraints - einmalig ausführen --> Erledigt 
+    Inhalt: Für nodes node ID als requirement 
+            Für relationships relationship ID als requirement 
+Mit den Constraints arbeiten: https://neo4j.com/docs/cdc/current/procedures/elementids-key-properties/ 
+Dafür brauchen wir ein Doover der DB und müssen sämtliche POST funktionen darauf anpassen, dass sie die ID welche wir selbst anlegen mitgeben  
+Neue Query die sowohl nodes als auch relationships zurück gibt 
+Daraus dann den Graphen laden 

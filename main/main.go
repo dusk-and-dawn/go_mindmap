@@ -30,6 +30,9 @@ func main() {
 
 	mm2neo := db.Neo4jAdapter{Driver: driver}
 
+	test, test1 := mm2neo.GetAll(context.Background())
+	fmt.Println(test, test1)
+
 	if err != nil {
 		fmt.Println("kaputt2")
 		return
@@ -53,23 +56,6 @@ func main() {
 	mux.Handle("GET /", http.FileServer(http.Dir("./frontend")))
 
 	mux.HandleFunc("GET /connections", mh.GetConnections)
-
-	// node1, extra := mh.MAusecase.GetNodeByID("01")
-	// node2, extra2 := mh.MAusecase.GetNodeByID("02")
-
-	// if extra == false {
-	// 	fmt.Println("komisch")
-	// }
-	// if extra2 == false {
-	// 	fmt.Println("komisch2")
-	// }
-
-	err = db.Neo4jAdapter.ConnectNodes(mm2neo, context.Background(), "RomanHilftMir", "RomanDerLehrer", "got_swag", "green")
-	if err != nil {
-		fmt.Println(`kaputt3 + $err`)
-		return
-	}
-	fmt.Println("Nodes verbunden")
 
 	log.Fatal(http.ListenAndServe(":8080", mux)) // dies in den http adapter
 

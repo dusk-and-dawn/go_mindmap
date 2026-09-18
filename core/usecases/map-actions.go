@@ -4,12 +4,19 @@ import (
 	"context"
 	db "go_mindmap/adapters/outbound/db"
 	"go_mindmap/core/domain"
+
+	"github.com/google/uuid"
 )
 
 type MapActions struct {
 	// Prefix string
 	Nodes map[string]domain.Node
 	DB    db.Neo4jAdapter
+}
+
+func createID() string {
+	id := uuid.New().String()
+	return id
 }
 
 func (f MapActions) GetNodeByID(id string) (domain.Node, bool) {
@@ -19,7 +26,8 @@ func (f MapActions) GetNodeByID(id string) (domain.Node, bool) {
 }
 
 func (f MapActions) SaveNode(node domain.Node) error {
-	err := f.DB.MindmapToNeo(context.Background(), node.Name)
+	node.Id = createID()
+	err := f.DB.MindmapToNeo(context.Background(), node)
 	if err != nil {
 		return err
 	}

@@ -30,11 +30,6 @@ func main() {
 
 	mm2neo := db.Neo4jAdapter{Driver: driver}
 
-	// test, test1 := mm2neo.GetAll(context.Background())
-	// fmt.Println(test, test1)
-
-	// fmt.Println("weggeschrieben in Neo4j")
-
 	nodes := map[string]domain.Node{}
 
 	mh := ihttp.MapHandler{MAusecase: usecases.MapActions{Nodes: nodes, DB: mm2neo}}

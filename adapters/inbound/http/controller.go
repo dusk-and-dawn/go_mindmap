@@ -124,7 +124,7 @@ func (f MapHandler) GetConnections(w http.ResponseWriter, r *http.Request) {
 	connections, err := f.MAusecase.GetConnections()
 
 	if err != nil {
-		fmt.Println("kaputt aus GetNodes Http")
+		fmt.Println("Problem beim Laden der Relationships")
 		http.Error(w, "could not fetch nodes", http.StatusInternalServerError)
 		return
 	}
@@ -154,8 +154,7 @@ func (f MapHandler) ShowWaiting(w http.ResponseWriter, r *http.Request) {
 
 func (f MapHandler) ConnectNodes(w http.ResponseWriter, r *http.Request) {
 	var newRelationship HTTPRelationship
-	// id1 := r.PathValue("id1")
-	// id2 := r.PathValue("id2")
+
 	err := json.NewDecoder(r.Body).Decode(&newRelationship)
 	if err != nil {
 		fmt.Println(err)

@@ -161,7 +161,7 @@ func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
 
 	var coll domain.Collection
 	coll.Nodes = make(map[string]domain.Node)
-	fmt.Println(coll)
+	// fmt.Println(coll)
 
 	if err != nil {
 		return coll, err

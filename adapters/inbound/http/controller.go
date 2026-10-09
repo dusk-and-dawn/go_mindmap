@@ -35,6 +35,7 @@ type HTTPRelationship struct {
 	NameB string `json:"nameB"`
 	Kind  string `json:"kind"`
 	Color string `json:"color"`
+	Id    string `json:"id"`
 }
 
 func (f MapHandler) GetNode(w http.ResponseWriter, r *http.Request) {
@@ -110,7 +111,7 @@ func (f MapHandler) GetComplete(w http.ResponseWriter, r *http.Request) {
 	}
 	var listRels []HTTPRelationship
 	for _, content := range coll.Relationships {
-		listRels = append(listRels, HTTPRelationship{NameA: content.NameA, NameB: content.NameB, Kind: content.Kind, Color: content.Color})
+		listRels = append(listRels, HTTPRelationship{NameA: content.NameA, NameB: content.NameB, Kind: content.Kind, Color: content.Color, Id: content.Id})
 	}
 
 	payload, err := json.Marshal(HTTPCollection{listNodes, listRels})

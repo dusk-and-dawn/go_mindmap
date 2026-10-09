@@ -43,7 +43,8 @@ func (f MapActions) GetNodes() ([]domain.Node, error) {
 }
 
 func (f MapActions) ConnectNodesFE(nameA string, nameB string, kind string, color string) error {
-	err := f.DB.ConnectNodes(context.Background(), nameA, nameB, kind, color)
+	id := createID()
+	err := f.DB.ConnectNodes(context.Background(), nameA, nameB, kind, color, id)
 	if err != nil {
 		return err
 	}

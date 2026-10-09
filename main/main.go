@@ -2,7 +2,7 @@
 package main
 
 import (
-	"context"
+	// "context"
 	"fmt"
 	ihttp "go_mindmap/adapters/inbound/http"
 	"go_mindmap/adapters/outbound/db"
@@ -24,20 +24,16 @@ func main() {
 
 	driver, err := db.SetupDriver("neo4j://127.0.0.1:7687", "neo4j", "Derunendliche")
 	if err != nil {
-		fmt.Println("kaputt")
+		fmt.Println("Problem beim Erstellen des Drivers für Neo4j")
 		return
 	}
 
 	mm2neo := db.Neo4jAdapter{Driver: driver}
 
-	test, test1 := mm2neo.GetAll(context.Background())
-	fmt.Println(test, test1)
+	// test, test1 := mm2neo.GetAll(context.Background())
+	// fmt.Println(test, test1)
 
-	if err != nil {
-		fmt.Println("kaputt2")
-		return
-	}
-	fmt.Println("weggeschrieben in Neo4j")
+	// fmt.Println("weggeschrieben in Neo4j")
 
 	nodes := map[string]domain.Node{}
 

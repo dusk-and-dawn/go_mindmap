@@ -58,4 +58,14 @@ Neue Query die sowohl nodes als auch relationships zurück gibt
 Daraus dann den Graphen laden 
 
 ## Session 12 
-Frontend selbst schreiben 
+Frontend selbst schreiben -> ah doch nicht 
+
+## Session 13 
+Relationship connection auch auf eigen generierte ID umstellen - backend und frontend 
+
+
+## Insgesamt offenes 
+unit tests 
+selector fuer mehrere Mindmaps 
+Error handling (error wrapping und aussagekraeftige Namensgebung) 
+einheitliche Namenskonventionen  

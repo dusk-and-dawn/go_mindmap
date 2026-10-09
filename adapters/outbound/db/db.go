@@ -85,23 +85,24 @@ func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) ([]domain.Node, error) {
 	return nodes, nil
 }
 
-func (f Neo4jAdapter) ConnectNodes(ctx context.Context, nameA string, nameB string, kind string, color string) error {
+func (f Neo4jAdapter) ConnectNodes(ctx context.Context, nameA string, nameB string, kind string, color string, id string) error {
 	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
 	defer session.Close(ctx)
 
 	_, err := session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
 		query := `
 		MATCH (a:Node {name: $NameA}), (b:Node {name: $NameB})
-		CREATE (a)-[r:COLOR_CONNECTED {kind:$kind, color:$color}]->(b)
+		CREATE (a)-[r:COLOR_CONNECTED {kind:$kind, color:$color, id:$id}]->(b)
 		`
 
-		params := map[string]any{"NameA": nameA, "NameB": nameB, "kind": kind, "color": color}
+		params := map[string]any{"NameA": nameA, "NameB": nameB, "kind": kind, "color": color, "id": id}
 
 		result, err := tx.Run(ctx, query, params)
 		if err != nil {
 			return nil, err
 		}
 		return result.Collect(ctx)
+
 	})
 	return err
 }
@@ -136,11 +137,18 @@ func (f Neo4jAdapter) GetConnections(ctx context.Context) ([]domain.Relationship
 			// err := errors.New("Problem beim Type-Casting von relationship property zu string aufgetreten.")
 		}
 
+		id, ok := neoCon.Props["id"].(string)
+		if !ok {
+			err := errors.New("Problem beim Auslesen der ID eines Relationships")
+			return nil, err
+		}
+
 		cons = append(cons, domain.Relationship{
 			NameA: neoCon.StartElementId,
 			NameB: neoCon.EndElementId,
 			Kind:  kind,
 			Color: color,
+			Id:    id,
 		})
 	}
 
@@ -205,8 +213,11 @@ func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
 		if !ok {
 			return coll, errors.New("did not find relationship color - snh")
 		}
-
-		coll.Relationships = append(coll.Relationships, domain.Relationship{NameA: aName, NameB: bName, Kind: rKind, Color: rColor})
+		rId, ok := r.Props["id"].(string)
+		if !ok {
+			return coll, errors.New("id not found in relationship - snh")
+		}
+		coll.Relationships = append(coll.Relationships, domain.Relationship{NameA: aName, NameB: bName, Kind: rKind, Color: rColor, Id: rId})
 	}
 	return coll, nil
 }

@@ -10,6 +10,7 @@ type Relationship struct {
 	NameB string
 	Kind  string
 	Color string
+	Id    string
 }
 
 type Collection struct {

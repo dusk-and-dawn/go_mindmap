@@ -142,32 +142,31 @@
             //     fetch('/getall'),
             //     fetch('/connections'),
             // ]);
-            const collRes = await fetch('/getComplete'); 
+            const response = await fetch('/getComplete'); 
+            if (!response.ok) { setStatus('Failed to load nodes'); return; }
 
-            if (!nodesRes.ok) { setStatus('Failed to load nodes'); return; }
-            const data = await nodesRes.json();
+            const {nodes, relationships} = await response.json();
+
+            // const data = await nodes.json();
 
             cy.elements().remove();
 
-            (data.nodes || []).forEach(n => {
-                cy.add({ group: 'nodes', data: { id: n.id, label: n.name, content: n.name } });
+            (nodes || []).forEach(n => {
+                cy.add({ group: 'nodes', data: { id: n.name, label: n.name, content: n.name } });
             });
 
             // load real edges from Neo4j instead of relying on session-only state
-            if (connsRes.ok) {
-                const connData = await connsRes.json();
-                (connData.relationships || []).forEach(rel => {
-                    // nameA/nameB are actually elementIds, matching node.id from /getall
-                    if (cy.getElementById(rel.nameA).length && cy.getElementById(rel.nameB).length) {
-                        addEdgeLocally(rel.nameA, rel.nameB, rel.kind, rel.color);
-                    }
-                });
-            } else {
-                setStatus('Nodes loaded, but failed to load connections');
-            }
+            
+            (relationships || []).forEach(rel => {
+                // nameA/nameB are actually elementIds, matching node.id from /getall
+                if (cy.getElementById(rel.nameA).length && cy.getElementById(rel.nameB).length) {
+                    addEdgeLocally(rel.nameA, rel.nameB, rel.kind, rel.color);
+                }
+            });
+        
 
             cy.layout({ name: 'cose', animate: false }).run();
-            setStatus(`${data.nodes?.length ?? 0} nodes loaded — click a node to select it`);
+            setStatus(`${nodes?.length ?? 0} nodes loaded — click a node to select it`);
         } catch (err) {
             setStatus('Error: ' + err.message);
         }
@@ -251,9 +250,9 @@
     // ── Add edge to graph ────────────────────────────────────────────────────
 
     function addEdgeLocally(sourceId, targetId, kind, color) {
-        const edgeId = `${sourceId}__${targetId}`;
-        if (cy.getElementById(edgeId).length) return; // avoid duplicate
-        cy.add({ group: 'edges', data: { id: edgeId, source: sourceId, target: targetId, kind, color } });
+        // const edgeId = `${sourceId}__${targetId}`;
+        // if (cy.getElementById(edgeId).length) return; // avoid duplicate
+        cy.add({ group: 'edges', data: { source: sourceId, target: targetId, kind, color } });
     }
 
     // ── Click on background to deselect ──────────────────────────────────────

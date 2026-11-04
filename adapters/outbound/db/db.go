@@ -31,7 +31,7 @@ func SetupDriver(uri, username, password string) (neo4j.Driver, error) {
 	return driver, nil
 }
 
-func (f Neo4jAdapter) MindmapToNeo(ctx context.Context, node domain.Node) error {
+func (f Neo4jAdapter) NodeToNeo(ctx context.Context, node domain.Node) error {
 	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
 	defer session.Close(ctx)
 
@@ -85,17 +85,17 @@ func (f Neo4jAdapter) NodesFromNeo(ctx context.Context) ([]domain.Node, error) {
 	return nodes, nil
 }
 
-func (f Neo4jAdapter) ConnectNodes(ctx context.Context, nameA string, nameB string, kind string, color string, id string) error {
+func (f Neo4jAdapter) ConnectNodes(ctx context.Context, IdA string, IdB string, kind string, color string, id string) error {
 	session := f.Driver.NewSession(ctx, neo4j.SessionConfig{AccessMode: neo4j.AccessModeWrite})
 	defer session.Close(ctx)
 
 	_, err := session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
 		query := `
-		MATCH (a:Node {name: $NameA}), (b:Node {name: $NameB})
+		MATCH (a:Node {id: $IdA}), (b:Node {id: $IdB})
 		CREATE (a)-[r:COLOR_CONNECTED {kind:$kind, color:$color, id:$id}]->(b)
 		`
 
-		params := map[string]any{"NameA": nameA, "NameB": nameB, "kind": kind, "color": color, "id": id}
+		params := map[string]any{"IdA": IdA, "IdB": IdB, "kind": kind, "color": color, "id": id}
 
 		result, err := tx.Run(ctx, query, params)
 		if err != nil {
@@ -144,8 +144,8 @@ func (f Neo4jAdapter) GetConnections(ctx context.Context) ([]domain.Relationship
 		}
 
 		cons = append(cons, domain.Relationship{
-			NameA: neoCon.StartElementId,
-			NameB: neoCon.EndElementId,
+			IdA:   neoCon.StartElementId,
+			IdB:   neoCon.EndElementId,
 			Kind:  kind,
 			Color: color,
 			Id:    id,
@@ -178,7 +178,7 @@ func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
 		}
 		aId, ok := a.Props["id"].(string)
 		if !ok {
-			return coll, errors.New("type casting Id of node failed -snh")
+			return coll, errors.New("type casting Id of node A failed -snh")
 		}
 		aName, ok := a.Props["name"].(string)
 		if !ok {
@@ -197,9 +197,13 @@ func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
 		if !ok {
 			return coll, errors.New("B - type casting zur Node schlug fehl - should not happen")
 		}
-		bName, ok := b.Props["name"].(string)
+		// bName, ok := b.Props["name"].(string)
+		// if !ok {
+		// 	return coll, errors.New("type casting B node name failed when casting for assigning relationship endpoint - snh")
+		// }
+		bId, ok := b.Props["id"].(string)
 		if !ok {
-			return coll, errors.New("type casting B node name failed when casting for assigning relationship endpoint - snh")
+			return coll, errors.New("type casting Id of node B failed -snh")
 		}
 		r, ok := rRaw.(neo4j.Relationship)
 		if !ok {
@@ -217,7 +221,7 @@ func (f Neo4jAdapter) GetAll(ctx context.Context) (domain.Collection, error) {
 		if !ok {
 			return coll, errors.New("id not found in relationship - snh")
 		}
-		coll.Relationships = append(coll.Relationships, domain.Relationship{NameA: aName, NameB: bName, Kind: rKind, Color: rColor, Id: rId})
+		coll.Relationships = append(coll.Relationships, domain.Relationship{IdA: aId, IdB: bId, Kind: rKind, Color: rColor, Id: rId})
 	}
 	return coll, nil
 }

@@ -6,14 +6,16 @@ type Node struct {
 }
 
 type Relationship struct {
-	NameA string
-	NameB string
+	IdA   string
+	IdB   string
 	Kind  string
 	Color string
 	Id    string
 }
 
 type Collection struct {
+	Id            string
+	Name          string
 	Nodes         map[string]Node
 	Relationships []Relationship
 }

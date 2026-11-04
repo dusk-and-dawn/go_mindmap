@@ -63,6 +63,9 @@ Frontend selbst schreiben -> ah doch nicht
 ## Session 13 
 Relationship connection auch auf eigen generierte ID umstellen - backend und frontend 
 
+## Session 14 
+Endpunktnamen geändert -> REST Prinzip Hier noch fixing benötigt 
+Glossar aufsetzen -> Terminologie erklären und festigen 
 
 ## Insgesamt offenes 
 unit tests 

@@ -142,7 +142,7 @@
             //     fetch('/getall'),
             //     fetch('/connections'),
             // ]);
-            const response = await fetch('/getComplete'); 
+            const response = await fetch('/GetMindmapById'); 
             if (!response.ok) { setStatus('Failed to load nodes'); return; }
 
             const {nodes, relationships} = await response.json();
@@ -152,16 +152,13 @@
             cy.elements().remove();
 
             (nodes || []).forEach(n => {
-                cy.add({ group: 'nodes', data: { id: n.name, label: n.name, content: n.name } });
+                cy.add({ group: 'nodes', data: { id: n.id, label: n.name, content: n.name } });
             });
 
             // load real edges from Neo4j instead of relying on session-only state
             
             (relationships || []).forEach(rel => {
-                // nameA/nameB are actually elementIds, matching node.id from /getall
-                if (cy.getElementById(rel.nameA).length && cy.getElementById(rel.nameB).length) {
-                    addEdgeLocally(rel.nameA, rel.nameB, rel.kind, rel.color);
-                }
+                    addEdgeLocally(rel.IdA, rel.IdB, rel.kind, rel.color);
             });
         
 

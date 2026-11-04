@@ -18,6 +18,8 @@ type HTTPNode struct {
 }
 
 type HTTPCollection struct {
+	Id            string             `json:"id"`
+	Name          string             `json:"name"`
 	Nodes         []HTTPNode         `json:"nodes"`
 	Relationships []HTTPRelationship `json:"relationships"`
 }
@@ -31,14 +33,14 @@ type HTTPRelationshipList struct {
 }
 
 type HTTPRelationship struct {
-	NameA string `json:"nameA"`
-	NameB string `json:"nameB"`
+	IdA   string `json:"IdA"`
+	IdB   string `json:"IdB"`
 	Kind  string `json:"kind"`
 	Color string `json:"color"`
 	Id    string `json:"id"`
 }
 
-func (f MapHandler) GetNode(w http.ResponseWriter, r *http.Request) {
+func (f MapHandler) GetNodeById(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
 
 	mmap, mmap_bool := f.MAusecase.GetNodeByID(id)
@@ -99,7 +101,7 @@ func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) {
 	w.Write(payload)
 }
 
-func (f MapHandler) GetComplete(w http.ResponseWriter, r *http.Request) {
+func (f MapHandler) GetMindmapById(w http.ResponseWriter, r *http.Request) {
 	coll, err := f.MAusecase.GetAll()
 	if err != nil {
 		fmt.Println("Error fetching all db entries")
@@ -111,10 +113,11 @@ func (f MapHandler) GetComplete(w http.ResponseWriter, r *http.Request) {
 	}
 	var listRels []HTTPRelationship
 	for _, content := range coll.Relationships {
-		listRels = append(listRels, HTTPRelationship{NameA: content.NameA, NameB: content.NameB, Kind: content.Kind, Color: content.Color, Id: content.Id})
+		listRels = append(listRels, HTTPRelationship{IdA: content.IdA, IdB: content.IdB, Kind: content.Kind, Color: content.Color, Id: content.Id})
 	}
-
-	payload, err := json.Marshal(HTTPCollection{listNodes, listRels})
+	collId := r.PathValue("id")
+	collName := r.PathValue("name")
+	payload, err := json.Marshal(HTTPCollection{collId, collName, listNodes, listRels})
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)
@@ -131,7 +134,7 @@ func (f MapHandler) GetConnections(w http.ResponseWriter, r *http.Request) {
 
 	var httpCons []HTTPRelationship
 	for _, n := range connections {
-		httpCons = append(httpCons, HTTPRelationship{NameA: n.NameA, NameB: n.NameB, Kind: n.Kind, Color: n.Color})
+		httpCons = append(httpCons, HTTPRelationship{IdA: n.IdA, IdB: n.IdB, Kind: n.Kind, Color: n.Color, Id: n.Id})
 	}
 
 	response := HTTPRelationshipList{Relationships: httpCons}
@@ -161,7 +164,7 @@ func (f MapHandler) ConnectNodes(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "JSON nicht entschlüsselt bekommen", http.StatusBadRequest)
 		return
 	}
-	err = f.MAusecase.ConnectNodesFE(newRelationship.NameA, newRelationship.NameB, newRelationship.Kind, newRelationship.Color)
+	err = f.MAusecase.ConnectNodes(newRelationship.IdA, newRelationship.IdB, newRelationship.Kind, newRelationship.Color)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, "Connection failed between nodes", http.StatusInternalServerError)

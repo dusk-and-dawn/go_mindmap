@@ -34,15 +34,17 @@ func main() {
 
 	mh := ihttp.MapHandler{MAusecase: usecases.MapActions{Nodes: nodes, DB: mm2neo}}
 
-	mux.HandleFunc("GET /map/{id}", mh.GetNode) // dies in den http adapter
+	mux.HandleFunc("GET /node/{id}", mh.GetNodeById) // dies in den http adapter
 
 	mux.HandleFunc("GET /makemap", mh.ShowWaiting) // dies in den http adapter
 
 	mux.HandleFunc("POST /makemap", mh.CreateNode) // dies in den http adapter
 
-	mux.HandleFunc("GET /getall", mh.GetNodes)
+	mux.HandleFunc("GET /node", mh.GetNodes)
 
-	mux.HandleFunc("GET /getComplete", mh.GetComplete)
+	mux.HandleFunc("GET /mindmap", mh.GetMindmaps)
+
+	mux.HandleFunc("GET /mindmap/{id}", mh.GetMindmapById)
 
 	mux.HandleFunc("POST /connect", mh.ConnectNodes)
 

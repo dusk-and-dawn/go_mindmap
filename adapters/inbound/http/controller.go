@@ -171,3 +171,7 @@ func (f MapHandler) ConnectNodes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func (f MapHandler) GetMindmaps(w http.ResponseWriter, r *http.Request) {
+
+}

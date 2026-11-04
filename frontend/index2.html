@@ -1,0 +1,63 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mindmap</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.29.2/cytoscape.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: #1a1a2e;
+            color: #eee;
+        }
+
+        #toolbar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            background: #16213e;
+            border-bottom: 1px solid #0f3460;
+        }
+
+        #toolbar h1 { font-size: 1rem; font-weight: 600; margin-right: auto; }
+
+        button {
+            padding: 6px 14px;
+            border: 1px solid #0f3460;
+            border-radius: 4px;
+            background: #0f3460;
+            color: #eee;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        button:hover { background: #1a4a8a; }
+
+        #status {
+            font-size: 0.8rem;
+            color: #aaa;
+            min-width: 280px;
+        }
+
+        #cy {
+            flex: 1;
+        }
+
+        /* Note bar at the bottom */
+        #note {
+            font-size: 0.75rem;
+            color: #666;
+            padding: 4px 16px;
+            background: #16213e;
+            border-top: 1px solid #0f3460;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>

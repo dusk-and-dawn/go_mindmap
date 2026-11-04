@@ -142,7 +142,7 @@
             //     fetch('/getall'),
             //     fetch('/connections'),
             // ]);
-            const response = await fetch('/GetMindmapById'); 
+            const response = await fetch('/mindmap/01'); 
             if (!response.ok) { setStatus('Failed to load nodes'); return; }
 
             const {nodes, relationships} = await response.json();

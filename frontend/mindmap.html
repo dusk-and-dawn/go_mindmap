@@ -183,7 +183,7 @@
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 // id is ignored by the backend; content becomes the Neo4j "name" property
-                body: JSON.stringify({ id: '', name: name.trim() }),
+                body: JSON.stringify({ id: '', name: name.trim(), mindmapId: mindmapId }),
             });
 
             if (!res.ok) { setStatus('Failed to create node'); return; }

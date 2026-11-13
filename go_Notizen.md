@@ -67,8 +67,20 @@ Relationship connection auch auf eigen generierte ID umstellen - backend und fro
 Endpunktnamen geändert -> REST Prinzip Hier noch fixing benötigt 
 Glossar aufsetzen -> Terminologie erklären und festigen 
 
+## Session 15
+Mehrere Mindmaps erzeugen möglich machen 
+Ggfs. mit Mindmaps von Mindmaps 
+Naming verbessern 
+Index HTML dynamisch ausbauen 
+
 ## Insgesamt offenes 
 unit tests 
 selector fuer mehrere Mindmaps 
 Error handling (error wrapping und aussagekraeftige Namensgebung) 
 einheitliche Namenskonventionen  
+
+## Verbesserungen von Habits
+Naming -> Ebenen im Kopf behalten und Regeln finden 
+Problemlösung -> auf kleinere Ebenen runterbrechen 
+Lieber Schneller in der tatsächlichen Doku nachgucken, als lange rumzuprobieren 
+ 

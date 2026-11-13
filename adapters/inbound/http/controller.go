@@ -13,8 +13,9 @@ type MapHandler struct {
 }
 
 type HTTPNode struct {
-	Id   string `json:"id"`
-	Name string `json:"name"`
+	Id        string `json:"id"`
+	Name      string `json:"name"`
+	MindmapId string `json:"mindmapId"`
 }
 
 type HTTPCollection struct {
@@ -76,11 +77,15 @@ func (f MapHandler) CreateNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Println(newNode.Name)
-	mindmapId := r.PathValue("id")
-	node2neo := domain.Node{Id: newNode.Id, Name: newNode.Name}
+	mindmapId := newNode.MindmapId
+	node := domain.Node{Id: newNode.Id, Name: newNode.Name}
 	mindmap := domain.Mindmap{Id: mindmapId, Name: "solve_later"}
-	f.MAusecase.SaveNode(node2neo, mindmap)
-
+	err = f.MAusecase.SaveNode(node, mindmap)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Couldn't save new node from controller", http.StatusBadRequest)
+		return
+	}
 }
 
 func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) {

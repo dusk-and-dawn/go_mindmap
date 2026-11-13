@@ -37,8 +37,8 @@ func (f Neo4jAdapter) NodeToNeo(ctx context.Context, node domain.Node, mindmap d
 
 	_, err := session.ExecuteWrite(ctx, func(tx neo4j.ManagedTransaction) (any, error) {
 
-		query := "CREATE (t:Node {name: $name, id:$id}) (t)-[r:BELONGS_TO]->($mindmap) RETURN t"
-		params := map[string]any{"name": node.Name, "id": node.Id, "mindmap": mindmap}
+		query := "CREATE (t:Node {name: $name, id:$id}) (t)-[r:BELONGS_TO]->(b:Mindmap{id:$mindmapId}) RETURN t"
+		params := map[string]any{"name": node.Name, "id": node.Id, "mindmapId": mindmap.Id}
 
 		result, err := tx.Run(ctx, query, params)
 		if err != nil {
@@ -107,8 +107,8 @@ func (f Neo4jAdapter) ConnectNodes(ctx context.Context, IdA string, IdB string, 
 }
 
 func (f Neo4jAdapter) GetAll(ctx context.Context, mindmapId string) (domain.Collection, error) {
-	query := "MATCH (a) WHERE (a)-[:BELONGS_TO]->($m) OPTIONAL MATCH (a)-[r]->(b)  RETURN a, r, b"
-	params := map[string]any{"m": mindmapId}
+	query := "MATCH (a:Node)-[:BELONGS_TO]->(:Mindmap{mindmapId:$mindmapId}) OPTIONAL MATCH (a:Node)-[r]->(b:Node)  RETURN a, r, b"
+	params := map[string]any{"mindmapId": mindmapId}
 	raw, err := neo4j.ExecuteQuery(ctx, f.Driver, query, params, neo4j.EagerResultTransformer, neo4j.ExecuteQueryWithDatabase("neo4j"))
 
 	var coll domain.Collection

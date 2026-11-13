@@ -25,9 +25,9 @@ func (f MapActions) GetNodeByID(id string) (domain.Node, bool) {
 	// return f.Prefix + id
 }
 
-func (f MapActions) SaveNode(node domain.Node) error {
+func (f MapActions) SaveNode(node domain.Node, mindmap domain.Mindmap) error {
 	node.Id = createID()
-	err := f.DB.NodeToNeo(context.Background(), node)
+	err := f.DB.NodeToNeo(context.Background(), node, mindmap)
 	if err != nil {
 		return err
 	}
@@ -51,16 +51,8 @@ func (f MapActions) ConnectNodes(IdA string, IdB string, kind string, color stri
 	return nil
 }
 
-func (f MapActions) GetConnections() ([]domain.Relationship, error) {
-	connections, err := f.DB.GetConnections(context.Background())
-	if err != nil {
-		return nil, err
-	}
-	return connections, nil
-}
-
-func (f MapActions) GetAll() (domain.Collection, error) {
-	return f.DB.GetAll(context.Background())
+func (f MapActions) GetAll(mindmapId string) (domain.Collection, error) {
+	return f.DB.GetAll(context.Background(), mindmapId)
 }
 
 func (f MapActions) GetMindmaps() {

@@ -10,3 +10,6 @@ FOR (a:Node) REQUIRE a.name IS NOT NULL;
 
 CREATE CONSTRAINT relationship_name
 FOR ()-[r:relationship]-() REQUIRE r.kind IS NOT NULL;
+
+CREATE CONSTRAINT mindmapId
+FOR (a:Node) REQUIRE a.mindmapId IS NOT NULL;

@@ -19,3 +19,8 @@ type Collection struct {
 	Nodes         map[string]Node
 	Relationships []Relationship
 }
+
+type Mindmap struct {
+	Id   string
+	Name string
+}

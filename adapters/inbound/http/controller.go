@@ -40,6 +40,11 @@ type HTTPRelationship struct {
 	Id    string `json:"id"`
 }
 
+type HTTPMindmap struct {
+	Id   string `json:"id"`
+	Name string `json:"name"`
+}
+
 func (f MapHandler) GetNodeById(w http.ResponseWriter, r *http.Request) {
 	id := r.PathValue("id")
 
@@ -71,8 +76,10 @@ func (f MapHandler) CreateNode(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Println(newNode.Name)
+	mindmapId := r.PathValue("id")
 	node2neo := domain.Node{Id: newNode.Id, Name: newNode.Name}
-	f.MAusecase.SaveNode(node2neo)
+	mindmap := domain.Mindmap{Id: mindmapId, Name: "solve_later"}
+	f.MAusecase.SaveNode(node2neo, mindmap)
 
 }
 
@@ -102,9 +109,10 @@ func (f MapHandler) GetNodes(w http.ResponseWriter, r *http.Request) {
 }
 
 func (f MapHandler) GetMindmapById(w http.ResponseWriter, r *http.Request) {
-	coll, err := f.MAusecase.GetAll()
+	collId := r.PathValue("id")
+	coll, err := f.MAusecase.GetAll(collId)
 	if err != nil {
-		fmt.Println("Error fetching all db entries")
+		fmt.Printf("Error fetching all db entries %s", err)
 		http.Error(w, "GetAll fehlgeschlagen im controller", http.StatusInternalServerError)
 	}
 	var listNodes []HTTPNode
@@ -115,34 +123,8 @@ func (f MapHandler) GetMindmapById(w http.ResponseWriter, r *http.Request) {
 	for _, content := range coll.Relationships {
 		listRels = append(listRels, HTTPRelationship{IdA: content.IdA, IdB: content.IdB, Kind: content.Kind, Color: content.Color, Id: content.Id})
 	}
-	collId := r.PathValue("id")
-	collName := r.PathValue("name")
-	payload, err := json.Marshal(HTTPCollection{collId, collName, listNodes, listRels})
 
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(payload)
-}
-
-func (f MapHandler) GetConnections(w http.ResponseWriter, r *http.Request) {
-	connections, err := f.MAusecase.GetConnections()
-
-	if err != nil {
-		fmt.Println("Problem beim Laden der Relationships")
-		http.Error(w, "could not fetch nodes", http.StatusInternalServerError)
-		return
-	}
-
-	var httpCons []HTTPRelationship
-	for _, n := range connections {
-		httpCons = append(httpCons, HTTPRelationship{IdA: n.IdA, IdB: n.IdB, Kind: n.Kind, Color: n.Color, Id: n.Id})
-	}
-
-	response := HTTPRelationshipList{Relationships: httpCons}
-	payload, err := json.Marshal(response)
-	if err != nil {
-		http.Error(w, "99 Problems", http.StatusInternalServerError)
-		return
-	}
+	payload, err := json.Marshal(HTTPCollection{collId, "", listNodes, listRels})
 
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(payload)

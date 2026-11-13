@@ -38,7 +38,7 @@ func main() {
 
 	mux.HandleFunc("GET /makemap", mh.ShowWaiting) // dies in den http adapter
 
-	mux.HandleFunc("POST /makemap", mh.CreateNode) // dies in den http adapter
+	mux.HandleFunc("POST /node", mh.CreateNode) // dies in den http adapter
 
 	mux.HandleFunc("GET /node", mh.GetNodes)
 
@@ -50,7 +50,7 @@ func main() {
 
 	mux.Handle("GET /", http.FileServer(http.Dir("./frontend")))
 
-	mux.HandleFunc("GET /connections", mh.GetConnections)
+	// mux.HandleFunc("GET /connections", mh.GetConnections)
 
 	log.Fatal(http.ListenAndServe(":8080", mux)) // dies in den http adapter
 
